@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.theopenschool.android.ui.main.MainFragment;
+import com.theopenschool.android.ui.main.CoursesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,10 +12,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, CoursesFragment.newInstance())
                     .commitNow();
-        }
+        }*/
     }
 }
