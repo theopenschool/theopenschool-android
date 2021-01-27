@@ -59,7 +59,7 @@ public class CoursesFragment extends Fragment {
         courseAdapter.setOnItemClickListener(new CourseAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, Course course, View v) {
-                CoursesFragmentDirections.ActionCoursesFragmentToCourseFragment action = CoursesFragmentDirections.actionCoursesFragmentToCourseFragment(course.getDocumentId(), course);
+                CoursesFragmentDirections.ActionCoursesFragmentToCourseFragment action = CoursesFragmentDirections.actionCoursesFragmentToCourseFragment(course.getDocumentId());
                 NavHostFragment.findNavController(CoursesFragment.this).navigate(action);
             }
         });

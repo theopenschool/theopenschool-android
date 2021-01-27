@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.theopenschool.android.R;
 import com.theopenschool.android.models.Course;
+
+import java.util.List;
 
 public class CourseFragment extends Fragment {
 
@@ -37,7 +41,6 @@ public class CourseFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         courseId = CourseFragmentArgs.fromBundle(getArguments()).getCourseId();
-        course = CourseFragmentArgs.fromBundle(getArguments()).getCourse();
     }
 
     @Override
@@ -46,7 +49,7 @@ public class CourseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_course, container, false);
 
         tvTitle = view.findViewById(R.id.course_tv_title);
-        tvTitle.setText(course.getTitle());
+        //tvTitle.setText(course.getTitle());
 
         btnDownload = view.findViewById(R.id.course_btn_download);
         btnDownload.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +61,14 @@ public class CourseFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            CourseFragmentDirections.ActionCourseFragmentToUnitFragment action = CourseFragmentDirections.actionCourseFragmentToUnitFragment(courseId, 0);
-                            NavHostFragment.findNavController(CourseFragment.this).navigate(action);
+                            List<DocumentSnapshot> documentSnapshots = task.getResult().getDocuments();
+
+                            if(documentSnapshots.size() > 0){
+                                CourseFragmentDirections.ActionCourseFragmentToUnitFragment action = CourseFragmentDirections.actionCourseFragmentToUnitFragment(courseId, 0, documentSnapshots.size());
+                                NavHostFragment.findNavController(CourseFragment.this).navigate(action);
+                            }else{
+                                Toast.makeText(getActivity(), "No sections found", Toast.LENGTH_SHORT).show();
+                            }
 
                             //List<DocumentSnapshot> documentSnapshots = task.getResult().getDocuments();
                             //tvContent.setText(.getString("text"));

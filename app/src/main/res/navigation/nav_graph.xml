@@ -25,6 +25,17 @@
         <argument
             android:name="position"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_unitFragment_self"
+            app:destination="@id/unitFragment" />
+        <action
+            android:id="@+id/action_unitFragment_to_courseFragment"
+            app:destination="@id/courseFragment"
+            app:popUpTo="@id/courseFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="sectionNumber"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -37,8 +48,5 @@
         <argument
             android:name="courseId"
             app:argType="string" />
-        <argument
-            android:name="course"
-            app:argType="com.theopenschool.android.models.Course" />
     </fragment>
 </navigation>
